@@ -1,0 +1,66 @@
+<?php if (! $this->compact): ?>
+    <div class="controls">
+        <?= $this->tabs ?>
+    </div>
+<?php endif ?>
+<div class="content">
+    <div class="actions">
+        <?= $this->qlink(
+            $this->translate('Create a New Instance') ,
+            'graylog/instances/new',
+            null,
+            [
+                'class'             => 'button-link',
+                'data-base-target'  => '_next',
+                'icon'              => 'plus',
+                'title'             => $this->translate('Create a new instance')
+            ]
+        ) ?>
+    </div>
+    <?php /** @var \Icinga\Repository\RepositoryQuery $instances */ if (! $instances->hasResult()): ?>
+        <p class="missing-configuration-error"><?= $this->translate('No Graylog instance configured yet. You have to configure an instance before creating event types.') ?></p>
+    <?php else: ?>
+        <?php if ($noEventtypes): ?>
+            <p class="missing-configuration-error"><?= $this->translate('No event types configured yet. You have to configure event types in order to access data in Graylog.') ?></p>
+            <div class="actions">
+                <?= $this->qlink(
+                    $this->translate('Create a New Event Type') ,
+                    'graylog/eventtypes/new',
+                    null,
+                    [
+                        'class'             => 'button-link',
+                        'data-base-target'  => '_self',
+                        'icon'              => 'plus',
+                        'title'             => $this->translate('Create a new event type')
+                    ]
+                ) ?>
+            </div>
+        <?php endif ?>
+        <div class="grid">
+            <?php foreach ($instances as $instance): ?>
+                <div class="grid-item">
+                    <h2 class="grid-item-header"><?= $this->escape($instance->name) ?></h2>
+                    <dl>
+                        <dt><?= $this->translate('Name') ?></dt>
+                        <dd><?= $this->escape($instance->name) ?></dd>
+                        <dt><?= $this->translate('URI') ?></dt>
+                        <dd><?= $this->escape($instance->uri) ?></dd>
+                    </dl>
+                    <?= $this->qlink(
+                        $this->translate('Update Instance') ,
+                        'graylog/instances/update',
+                        [
+                            'instance'  => $instance->name
+                        ],
+                        [
+                            'class'             => 'button-link',
+                            'data-base-target'  => '_next',
+                            'icon'              => 'plus',
+                            'title'             => $this->translate('Update Instance')
+                        ]
+                    ) ?>
+                </div>
+            <?php endforeach ?>
+        </div>
+    <?php endif ?>
+</div>

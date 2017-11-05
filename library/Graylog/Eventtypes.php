@@ -5,22 +5,23 @@ namespace Icinga\Module\Graylog;
 
 use Icinga\Repository\IniRepository;
 
-class Instances extends IniRepository
+class Eventtypes extends IniRepository
 {
     protected $configs = [
-        'instances' => [
-            'name'      => 'instances',
+        'eventtypes' => [
+            'name'      => 'eventtypes',
             'keyColumn' => 'name',
             'module'    => 'graylog'
         ]
     ];
 
     protected $queryColumns = [
-        'instances' => [
+        'eventtypes' => [
             'name',
-            'uri',
-            'user',
-            'password'
+            'instance',
+            'index', //TODO - stream?
+            'filter',
+            'fields'
         ]
     ];
 }
