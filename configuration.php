@@ -8,12 +8,10 @@ $this->providePermission(
     $this->translate('Allow to configure Graylog instances and event types')
 );
 
-/*
 $this->provideRestriction(
     'graylog/eventtypes',
     $this->translate('Restrict the event types the user may use')
 );
-*/
 
 $this->provideConfigTab('graylog/instances', array(
     'title' => $this->translate('Configure Graylog Instances'),
@@ -21,10 +19,8 @@ $this->provideConfigTab('graylog/instances', array(
     'url'   => 'instances'
 ));
 
-/*
 $this->provideConfigTab('graylog/eventtypes', array(
     'title' => $this->translate('Configure Event Types'),
     'label' => $this->translate('Event Types'),
     'url'   => 'eventtypes'
 ));
-*/
