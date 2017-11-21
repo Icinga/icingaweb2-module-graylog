@@ -1,0 +1,38 @@
+<div class="controls">
+    <?= $tabs ?>
+    <div class="icinga-module module-monitoring">
+        <?= $this->partial('partials/object/host-header.phtml', 'monitoring', ['object' => $host]) ?>
+    </div>
+    <?= $eventtypeForm ?>
+</div>
+<div class="content">
+    <?php if (empty($events)): ?>
+    <p><?= $this->translate('No events found.') ?></p>
+</div>
+<?php return; endif ?>
+<table class="events-table table-row-selectable" data-base-target="_next">
+    <thead>
+    <tr>
+        <?php foreach (array_keys($fields) as $field): ?>
+            <th><?= $this->escape($field) ?></th>
+        <?php endforeach ?>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($events as $event): ?>
+        <tr>
+            <?php foreach ($fields as $getter):
+                //var_dump($getter); die();
+                $column = $getter($event['message']);
+                $ellipsis = $this->ellipsis($column, 100);
+                if ($column !== $ellipsis): ?>
+                    <td title="<?= $this->escape($column) ?>"><?= $this->escape($ellipsis) ?></td>
+                <?php else: ?>
+                    <td><?= $this->escape($column) ?></td>
+                <?php endif ?>
+            <?php endforeach ?>
+        </tr>
+    <?php endforeach ?>
+    </tbody>
+</table>
+</div>
