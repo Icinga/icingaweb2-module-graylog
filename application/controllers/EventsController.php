@@ -21,7 +21,7 @@ class EventsController extends Controller
     public function indexAction()
     {
         $host = new Host(MonitoringBackend::instance(), $this->params->getRequired('host'));
-//        $this->applyRestriction('monitoring/filter/objects', $host);
+//        $this->applyRestriction('monitoring/filter/objects', $host); //TODO
         if ($host->fetch() === false) {
             $this->httpNotFound($this->translate('Host not found or not permitted'));
         }

@@ -8,6 +8,11 @@
 4. [Documentation](#documentation)
 5. [Contributing](#contributing)
 
+> **Note**
+>
+> This module is experimental and in development. It is not released and not yet ready for production!
+> Things will break.
+
 ## About
 
 The Graylog Module for Icinga Web 2 integrates your [Graylog](https://www.graylog.org) stack into
