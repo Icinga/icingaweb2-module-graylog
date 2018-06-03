@@ -41,8 +41,8 @@ Stacktrace ...
 * Module version (System - About):
 * Icinga Web 2 version and modules (System - About):
 * Icinga 2 version (`icinga2 --version`):
-* Graylog version:
-* Elasticsearch version: 
+* Graylog version (e.g. `curl -u admin:admin http://192.168.33.6:9000/api`):
+* Elasticsearch version (`curl http://localhost:9200`):
 * Operating System and version:
 * Webserver, PHP versions:
 
