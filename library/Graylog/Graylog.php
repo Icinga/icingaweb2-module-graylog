@@ -37,10 +37,17 @@ class Graylog implements Selectable
     public static function extractFields($source, &$fields, array $parent = [])
     {
         foreach ($source as $key => $value) {
-
             //var_dump(json_encode($key));
             //var_dump(json_encode($value));
             //die();
+
+            if ($key === 'timestamp') {
+                $fields['timestamp'] = function($event) {
+                    $value = new \DateTime($event['timestamp']);
+                    return $value->format('Y-m-d H:i:s');
+                };
+                continue;
+            }
 
             if (is_array($value)) {
                 static::extractFields($value, $fields, array_merge($parent, [$key]));

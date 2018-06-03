@@ -110,6 +110,8 @@ class Query implements Queryable, Paginatable
 
             $client = new Client();
 
+            //TODO: TLS
+
             //curl -k -u admin:admin -H 'Accept: application/json' 'http://192.168.33.6:9000/api/search/universal/relative?query=hostname:graylog-host'
 
             //TODO: add stream id to query (this can be done with the filter param). https://github.com/blue-yonder/bonfire/blob/master/bonfire/cli.py#L175
@@ -122,12 +124,18 @@ class Query implements Queryable, Paginatable
             $headers = [
                 'User-Agent'    => 'icingaweb2-module-graylog',
                 'Accept'        => 'application/json',
+                'Content-type'  => 'application/json',
                 'Authorization' => 'Basic ' . base64_encode("$config->user:$config->password")
             ];
 
-            //Graylog nrequires params for /search/universal/relative
+            //Graylog requires params for /search/universal/relative
             // - query=hostname:graylog-host
             // - fields=hostname,source
+
+            $filter = $this->filter;
+
+            //var_dump($this->filter);
+            //die();
 
             $params = array_filter(array_merge([
                 'fields'    => join(",", array_merge(['timestamp'], $this->fields)), //include the timestamp, and format fields. Graylog does not understand URL array[] notation
@@ -167,9 +175,9 @@ class Query implements Queryable, Paginatable
 
             $responseBody = Json::decode((string) $response->getBody(), true);
 
-            //var_dump($responseBody);
+            var_dump($responseBody);
 
-            //die();
+            die();
 
             //Graylog has this type of error handling
             if (isset($responseBody['type']) && $responseBody['type'] === 'ApiError') {

@@ -90,15 +90,12 @@ class EventsController extends Controller
             return Macro::resolveMacro($match[1], $host);
         }, $eventtype->filter);
 
-
         $graylogFilter = new FilterRenderer(Filter::fromQueryString($filterString));
 
         $query = (new Graylog($instance))
             ->select(StringHelper::trimSplit($eventtype->fields))
             ->from($eventtype->index)
             ->filter($graylogFilter->getQuery());
-
-        //var_dump($query);
 
         $this->paginate($query);
 

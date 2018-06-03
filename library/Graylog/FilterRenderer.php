@@ -148,6 +148,8 @@ class FilterRenderer {
      */
     protected function renderFilterExpression(Filter $filter)
     {
+        //http://docs.graylog.org/en/2.4/pages/queries.html
+
         /** @var FilterMatch $filter (just for resolving) */
         $column = $filter->getColumn();
         $sign = $filter->getSign();
@@ -200,7 +202,11 @@ class FilterRenderer {
         else {
             // simple comparison via match
             if ($sign === '=' || $sign === '!=') { //Graylog renders differently to Elasticsearch
-                return $column; //column already holds "hostname:..."
+                return array(
+                    'match' => array(
+                        $column => $value,
+                    ),
+                );
             } elseif (preg_match('/^[<>]=?$/', $sign)) {
                 $param_map = array(
                     '>' => 'gt',

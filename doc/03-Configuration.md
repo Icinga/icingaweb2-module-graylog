@@ -15,6 +15,6 @@ vim /etc/icingaweb2/modules/graylog/eventtypes.ini
 [gelf]
 instance = "graylog"
 index = "notused"
-filter = "host={host.name}"
+filter = "hostname={host.name}"
 fields = "*"
 ```
